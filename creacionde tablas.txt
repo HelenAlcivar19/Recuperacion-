@@ -1,0 +1,55 @@
+CREATE TABLE Oferta(
+    id_oferta  INTEGER NOT NULL primary key autoincrement,
+    plansets  nvarchar(50) NOT NULL,
+    existing_use nvarchar(50) NOT NULL,
+    existing_units nvarchar(50) NOT NULL,
+    id_precio integer references Precio(id_precio)
+);
+
+CREATE TABLE Detalle(
+    id_detalle  INTEGER NOT NULL primary key autoincrement,
+    number_of_existing_Stories  nvarchar(50) NOT NULL,
+    number_of_proposed_Stories nvarchar(50) NOT NULL,
+    voluntary_soft nvarchar(50) NOT NULL,
+    permit_expiration_date nvarchar(50) NOT NULL,
+    id_unidad integer references Cosntruccion(id_unidad)
+);
+
+CREATE TABLE Construccion(
+    id_unidad  INTEGER NOT NULL primary key autoincrement,
+    current_status_Date  nvarchar(50) NOT NULL,
+    issued_date nvarchar(50) NOT NULL,
+    description nvarchar(50) NOT NULL,
+    current_status nvarchar(50) NOT NULL,
+    id_registro integer references Registro(id_registro)
+);
+
+CREATE TABLE Modelo(
+    id_modelo  INTEGER NOT NULL primary key autoincrement,
+    proposed_construction  nvarchar(50) NOT NULL,
+    existing_construction_Type nvarchar(50) NOT NULL,
+     existing_construction_Des nvarchar(50) NOT NULL,
+      id_registro integer references Registro(id_registro)
+);
+
+
+CREATE TABLE Registro (
+    permit_number INTEGER NOT NULL primary key autoincrement,
+    permit_type nvarchar(50) NOT NULL,
+    permit_type_definition  nvarchar(50) NOT NULL,
+    permit_creation_date nvarchar(50) NOT NULL,
+    id_modelo integer references Modelo (id_modelo)
+);
+CREATE TABLE Permiso(
+    permit_number INTEGER NOT NULL primary key autoincrement,
+    permit_type nvarchar(50) NOT NULL,
+    permit_creation_date nvarchar(50) NOT NULL,
+    Permit_type_Definition nvarchar(50) NOT NULL,
+    id_registro integer references Registro(id_registro)
+);
+CREATE TABLE Precio (
+    id_precio   INTEGER NOT NULL primary key autoincrement,
+    estimated_cost NVARCHAR (50) NOT NULL,
+    revised_costo  NVARCHAR (50) NOT NULL,
+    id_detalle     INTEGER   REFERENCES Detalle (id_detalle) 
+);
